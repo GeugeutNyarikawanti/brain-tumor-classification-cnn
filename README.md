@@ -1,122 +1,157 @@
 # Brain Tumor Classification using Convolutional Neural Network (CNN)
 
-## Overview
+## Anggota Kelompok
 
-Brain Tumor Classification using Convolutional Neural Network (CNN) merupakan proyek pembelajaran machine learning yang bertujuan untuk mengklasifikasikan citra Magnetic Resonance Imaging (MRI) otak ke dalam empat kategori tumor, yaitu **Glioma**, **Meningioma**, **Pituitary**, dan **No Tumor**. Model dikembangkan menggunakan framework **PyTorch** dengan pendekatan Deep Learning berbasis CNN yang meliputi tahapan eksplorasi dataset, preprocessing, perancangan arsitektur model, proses training, hingga evaluasi performa model.
+1. **Geugeut Nyarikawanti Surahmat** (103132400002)
+2. **Wahyuni Salsabila** (103132400010)
+
+Program Studi S1 Sains Data
+Fakultas Informatika
+Telkom University
+
+---
+
+## Deskripsi Permasalahan
+
+Tumor otak merupakan salah satu penyakit yang memerlukan diagnosis secara cepat dan akurat. Identifikasi jenis tumor melalui citra Magnetic Resonance Imaging (MRI) umumnya dilakukan oleh tenaga medis dan membutuhkan keahlian khusus. Oleh karena itu, diperlukan suatu model klasifikasi berbasis Deep Learning yang mampu membantu proses identifikasi jenis tumor secara otomatis.
+
+Pada proyek ini dikembangkan model **Convolutional Neural Network (CNN)** menggunakan framework PyTorch untuk mengklasifikasikan citra MRI otak ke dalam empat kategori, yaitu **Glioma**, **Meningioma**, **Pituitary**, dan **No Tumor**.
 
 ---
 
 ## Dataset
 
-Dataset yang digunakan merupakan **Brain Tumor Classification (MRI)** yang tersedia secara publik di Kaggle dan disusun oleh **Sartaj Bhuvaji**. Dataset terdiri atas citra MRI otak yang telah dipisahkan ke dalam data **Training** dan **Testing**, masing-masing dengan empat kelas target.
+Dataset yang digunakan adalah **Brain Tumor Classification (MRI)** yang dipublikasikan melalui Kaggle.
 
-Dataset dapat diakses melalui:
+* **Nama Dataset:** Brain Tumor Classification (MRI)
+* **Sumber:** Kaggle
+* **Owner:** Sartaj Bhuvaji
+* **Lisensi:** MIT License
 
 https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri
 
-### Kelas Dataset
+Dataset terdiri atas dua folder utama:
+
+* Training
+* Testing
+
+Dengan empat kelas:
 
 * Glioma
 * Meningioma
 * No Tumor
 * Pituitary
 
----
-
-## Arsitektur Model
-
-Model CNN yang dikembangkan terdiri atas tiga blok **Convolutional Neural Network** dengan fungsi aktivasi **ReLU** dan **Max Pooling** untuk proses ekstraksi fitur. Hasil ekstraksi fitur kemudian diteruskan ke lapisan **Fully Connected** yang dilengkapi **Dropout** untuk melakukan klasifikasi ke dalam empat kelas tumor.
-
----
-
-## Konfigurasi Pelatihan
-
-| Parameter     |            Nilai |
-| ------------- | ---------------: |
-| Image Size    |        224 × 224 |
-| Batch Size    |               64 |
-| Optimizer     |             Adam |
-| Learning Rate |            0.001 |
-| Loss Function | CrossEntropyLoss |
-| Epoch         |               20 |
-
----
-
-## Hasil
-
-Model terbaik yang diperoleh pada penelitian ini menghasilkan:
-
-* **Best Validation Accuracy : 74.37%**
-* **Test Accuracy : 74.37%**
-
----
-
-## Struktur Proyek
+Karena ukuran dataset cukup besar, dataset tidak disertakan pada repository ini. Dataset dapat diunduh melalui tautan di atas dan ditempatkan pada folder:
 
 ```text
-brain-tumor-classification-cnn/
-│
-├── Dataset/
-├── Models/
-│   ├── best_model.pth
-│   └── cnn.py
-├── Notebooks/
-│   ├── 01_dataset.ipynb
-│   ├── 02_preprocessing.ipynb
-│   ├── 03_model.ipynb
-│   ├── 04_training.ipynb
-│   └── 05_evaluation.ipynb
-├── Utils/
-│   ├── data_loader.py
-│   ├── train.py
-│   └── evaluate.py
-├── settings/
-│   └── config.py
-├── requirements.txt
-└── README.md
+Dataset/
+├── Training/
+└── Testing/
 ```
 
 ---
 
-## Cara Menjalankan
+## Tahapan Preprocessing
+
+Tahapan preprocessing yang diterapkan pada penelitian ini meliputi:
+
+1. Resize citra menjadi 224 × 224 piksel.
+2. Data augmentation menggunakan:
+
+   * Random Horizontal Flip
+   * Random Rotation (10°)
+3. Konversi citra menjadi Tensor.
+4. Normalisasi menggunakan nilai mean dan standard deviation dataset.
+
+---
+
+## Metode yang Digunakan
+
+Metode utama yang digunakan adalah **Convolutional Neural Network (CNN)** dengan framework PyTorch.
+
+Arsitektur model terdiri atas:
+
+* Convolution Layer (32 filter)
+* ReLU Activation
+* Max Pooling
+* Convolution Layer (64 filter)
+* ReLU Activation
+* Max Pooling
+* Convolution Layer (128 filter)
+* ReLU Activation
+* Max Pooling
+* Fully Connected Layer (256 neuron)
+* Dropout (0.5)
+* Output Layer (4 kelas)
+
+Konfigurasi pelatihan:
+
+| Parameter     |            Nilai |
+| ------------- | ---------------: |
+| Optimizer     |             Adam |
+| Learning Rate |            0.001 |
+| Batch Size    |               64 |
+| Epoch         |               20 |
+| Loss Function | CrossEntropyLoss |
+
+---
+
+## Cara Menjalankan Program
 
 1. Clone repository.
-2. Install seluruh dependency menggunakan `requirements.txt`.
-3. Jalankan notebook secara berurutan mulai dari:
 
-   * `01_dataset.ipynb`
-   * `02_preprocessing.ipynb`
-   * `03_model.ipynb`
-   * `04_training.ipynb`
-   * `05_evaluation.ipynb`
+2. Install dependency.
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Unduh dataset dari Kaggle kemudian letakkan pada folder:
+
+```text
+Dataset/
+├── Training/
+└── Testing/
+```
+
+4. Jalankan proses training.
+
+```bash
+python train.py
+```
+
+5. Evaluasi model.
+
+```bash
+python evaluate.py
+```
+
+6. Prediksi citra baru.
+
+```bash
+python predict.py path/to/image.jpg
+```
 
 ---
 
-## Teknologi
+## Hasil Eksperimen dan Evaluasi
 
-* Python
-* PyTorch
-* TorchVision
-* NumPy
-* Matplotlib
-* Scikit-learn
-* Jupyter Notebook
+Model CNN berhasil melakukan klasifikasi citra MRI otak dengan hasil terbaik sebagai berikut:
 
----
+* Best Validation Accuracy : **74.37%**
+* Test Accuracy : **74.37%**
 
-## Lisensi Dataset
+Evaluasi model dilakukan menggunakan:
 
-Dataset yang digunakan merupakan dataset publik milik **Sartaj Bhuvaji** yang tersedia di Kaggle dengan lisensi **MIT License**.
+* Accuracy
+* Confusion Matrix
+* Classification Report
 
 ---
 
-## Author
+## Kesimpulan
 
-Project ini dikembangkan sebagai tugas akhir mata kuliah Pembelajaran Mesin oleh:
+Model Convolutional Neural Network (CNN) yang dikembangkan mampu mengklasifikasikan citra MRI otak ke dalam empat kategori tumor dengan akurasi pengujian sebesar **74.37%**. Hasil tersebut menunjukkan bahwa CNN mampu mempelajari karakteristik visual dari citra MRI dengan cukup baik sehingga dapat digunakan sebagai dasar dalam pengembangan sistem klasifikasi tumor otak berbasis Deep Learning.
 
-1. Geugeut Nyarikawanti Surahmat (103132400002)
-2. Wahyuni Salsabila (103132400010)
-
-Program Studi S1 Sains Data
-Fakultas Informatika
-Telkom University Purwokerto
+Pengembangan selanjutnya dapat dilakukan dengan menerapkan arsitektur yang lebih kompleks, seperti ResNet atau EfficientNet, serta melakukan optimasi hyperparameter dan teknik augmentasi data untuk meningkatkan performa model.
