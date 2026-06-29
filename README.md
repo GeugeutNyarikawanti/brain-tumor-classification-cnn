@@ -107,3 +107,16 @@ brain-tumor-classification-cnn/
 ## Lisensi Dataset
 
 Dataset yang digunakan merupakan dataset publik milik **Sartaj Bhuvaji** yang tersedia di Kaggle dengan lisensi **MIT License**.
+
+---
+
+## Author
+
+Project ini dikembangkan sebagai tugas akhir mata kuliah Pembelajaran Mesin oleh:
+
+1. Geugeut Nyarikawanti Surahmat (103132400002)
+2. Wahyuni Salsabila (103132400010)
+
+Program Studi S1 Sains Data
+Fakultas Informatika
+Telkom University Purwokerto
