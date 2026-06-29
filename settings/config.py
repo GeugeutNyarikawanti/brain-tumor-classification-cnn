@@ -8,7 +8,6 @@ CLASS_NAMES = [
     "pituitary"
 ]
 
-
 # DataLoader Configuration
 BATCH_SIZE = 64
 NUM_WORKERS = 0
@@ -25,3 +24,11 @@ DATASET_STD = [
     0.1868,
     0.1868
 ]
+
+# Dataset Directory
+TRAIN_DIR = "../Dataset/Training"
+TEST_DIR = "../Dataset/Testing"
+
+# Training Configuration
+LEARNING_RATE = 0.001
+NUM_EPOCHS = 20
